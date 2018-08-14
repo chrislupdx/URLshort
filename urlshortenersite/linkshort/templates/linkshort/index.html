@@ -1,0 +1,20 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'linkshort/style.css' %}" />
+
+{{THIS_IS_A_URL_TEXT_BOX}}{{AMABUTTON}}
+{{OUTPUT}}
+
+
+{% if latest_question_list %}
+    <ul>context
+    {% for question in latest_question_list %}
+		<li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+{# we're gonna be using a POST method for the textbox #}
+{# we'll be using a GET method for the url returned #}
