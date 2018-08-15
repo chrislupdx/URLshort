@@ -1,20 +1,39 @@
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-<link rel="stylesheet" type="text/css" href="{% static 'linkshort/style.css' %}" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Django Url Shortener</title>
+  {% load static %}
 
-{{THIS_IS_A_URL_TEXT_BOX}}{{AMABUTTON}}
-{{OUTPUT}}
+  <link rel="stylesheet" type="text/css" href="{% static 'urlapp/style.css' %}" />
+</head>
 
+<body>
+  <div>
+    {{ foo }}
+    <form action="{% url 'linkshort:index' %}" method="POST">
+      {% csrf_token %}
+      <input name="url_input" type="text" placeholder="Enter a url to shorten">
+      <button type="submit">Shorten</button>
+    </form>
+    <table>
+      <tr>
+        <th>Code</th>
+        <th>Url</th>
+      </tr>
+      {% for url in urls %}
+      <tr>
+        <th>
+          <a href="{% url 'linkshort:redirect' shortened=url.shortened %}">{{ url.shortened }}</a>
+        </th>
+        <th>{{ url.url }}</th>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</body>
 
-{% if latest_question_list %}
-    <ul>context
-    {% for question in latest_question_list %}
-		<li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
-
-{# we're gonna be using a POST method for the textbox #}
-{# we'll be using a GET method for the url returned #}
+</html>
