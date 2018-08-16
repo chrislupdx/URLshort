@@ -7,4 +7,3 @@ class Link(models.Model):
 
 	def __str__(self):
 		return self.url +'-'+ self.shortened
-

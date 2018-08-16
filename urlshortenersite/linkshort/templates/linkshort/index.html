@@ -19,6 +19,9 @@
       <input name="url_input" type="text" placeholder="Enter a url to shorten">
       <button type="submit">Shorten</button>
     </form>
+    {% if shortened %}
+      {{ shortened }}     
+    {% endif %}
     <table>
       <tr>
         <th>Code</th>
