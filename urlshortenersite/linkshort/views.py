@@ -1,8 +1,6 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 import random, requests
-# import import get_object_or_404
-# import request/short 
 from .models import Link
 
 def index(request):
@@ -25,7 +23,11 @@ def index(request):
 
 
 def shorten_redirect(request, shortened):
-	return HttpResponse(shortened)
+	link = get_object_or_404(Link, shortened=shortened)
+	return redirect(link.url)
+
+
+	# return HttpResponse(shortene
 
 def shorten_url(long_url):
 	while True:
